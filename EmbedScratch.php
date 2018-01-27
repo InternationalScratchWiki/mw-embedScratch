@@ -17,6 +17,8 @@
     Embedding Scratch in MediaWiki
     <scratch> Tag
     
+    Some parts are from ScratchSig
+    https://github.com/LLK/mw-ScratchSig2/blob/master/ScratchSig2.php
     
 */
 
@@ -29,11 +31,11 @@ $wgExtensionFunctions[] = 'beginEmbedScratch';
 $wgHooks['ParserFirstCallInit'][] = 'parserEmbedScratch';
 
 function parserEmbedScratch (Parser $parser) {
-    $parser->setHook('scratch', 'sigRenderTag');
+    $parser->setHook('scratch', 'renderEmbedScratch');
     return true;
 }
 
-function parserEmbedScratch ($input, array $args, Parser $parser, PPFrame $frame) {
+function renderEmbedScratch ($input, array $args, Parser $parser, PPFrame $frame) {
     $project = $args["project"]?$args["project"]:"";
     if ($url == ""){
         return "";
