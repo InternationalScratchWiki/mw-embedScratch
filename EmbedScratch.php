@@ -34,7 +34,7 @@ function parserEmbedScratch (Parser $parser) {
 }
 
 function parserEmbedScratch ($input, array $args, Parser $parser, PPFrame $frame) {
-    $project = $args["src"]?$args["src"]:"";
+    $project = $args["project"]?$args["project"]:"";
     if ($url == ""){
         return "";
     }
