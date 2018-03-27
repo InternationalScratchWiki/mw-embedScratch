@@ -10,9 +10,7 @@
 	"type": "parserhook",
 	"namespaces": [],
 	"AutoloadClasses": {
-		"Piwo": "Piwo.class.php",
-		"PiwoContent": "Piwo.class.php",
-		"PiwoContentHandler": "Piwo.class.php"
+		"EmbedScratch": "EmbedScratch.php"
 	},
 	"ContentHandlers": {},
 	"ExtensionMessagesFiles": {},
