@@ -1,0 +1,28 @@
+{
+	"name": "embedScratch",
+	"version": "1.0.0",
+	"author": [
+		"Apple502j"
+	],
+	"url": "https://github.com/apple502j/mw-embedScratch",
+	"descriptionmsg": "embedscratch-desc",
+	"license-name": "GPLv3",
+	"type": "parserhook",
+	"namespaces": [],
+	"AutoloadClasses": {
+		"Piwo": "Piwo.class.php",
+		"PiwoContent": "Piwo.class.php",
+		"PiwoContentHandler": "Piwo.class.php"
+	},
+	"ContentHandlers": {},
+	"ExtensionMessagesFiles": {},
+	"Hooks": {
+		"ParserFirstCallInit": "EmbedScratch::parserEmbedScratch"
+	},
+	"MessagesDirs": {
+		"embedScratch": [
+			"i18n"
+		]
+	},
+	"manifest_version": 1
+}
