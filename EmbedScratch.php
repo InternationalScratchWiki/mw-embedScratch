@@ -25,29 +25,43 @@
 if (!defined('MEDIAWIKI')) {
     die();
 }
-error_reporting(0);
-
-$wgExtensionFunctions[] = 'beginEmbedScratch';
-$wgHooks['ParserFirstCallInit'][] = 'parserEmbedScratch';
-
-function parserEmbedScratch (Parser $parser) {
-    $parser->setHook('scratch', 'renderEmbedScratch');
-    return true;
+class EmbedScratch{
+	public static function parserEmbedScratch (&$parser) {
+	    $parser->setHook('scratch', array(__CLASS__,'renderEmbedScratch'));
+	    return true;
+	}
+	
+	function renderEmbedScratch ($input, $argv, $parser) {
+		$project = '';
+		$width = $width_max = 485;
+		$height = $height_max = 402;
+	
+		
+		if ( !empty( $argv['project'] ) ){
+			$project=$argv['project'];
+		} elseif (!empty($input)){
+			$project=$input;
+		}
+		if (
+			!empty( $argv['width'] ) &&
+			settype( $argv['width'], 'integer' ) &&
+			( $width_max >= $argv['width'] )
+		)
+		{
+			$width = $argv['width'];
+		}
+		if (
+			!empty( $argv['height'] ) &&
+			settype( $argv['height'], 'integer' ) &&
+			( $height_max >= $argv['height'] )
+		)
+		{
+			$height = $argv['height'];
+		}
+		if (!empty($project)) {
+			return "<iframe allowtransparency=\"true\" width=\"{$width}\" height=\"{$height}\" src=\"https://scratch.mit.edu/projects/embed/{$project}/?autostart=false\" frameborder=\"0\" allowfullscreen></iframe>";
+		} else {
+			return "";
+		}
+	}
 }
-
-function renderEmbedScratch ($input, array $args, Parser $parser, PPFrame $frame) {
-    $project = $args["project"]?$args["project"]:"";
-    if ($project == ""){
-        return "";
-    }
-    $o =  '<br>'
-        . '<iframe allowtransparency="true" width="485" height="402" allowfullscreen frameborder="0" src="https://scratch.mit.edu/projects/embed/'
-        . $project
-        . '/?autostart=false"></iframe>';
-    return $o;
-}
-function beginEmbedScratch () {
-    global $wgOut;
-    $wgOut->addModules('ext.embedScratch');
-}
-

@@ -1,6 +1,6 @@
 {
-	"name": "embedScratch",
-	"version": "1.0.0",
+	"name": "EmbedScratch",
+	"version": "2.0.0",
 	"author": [
 		"Apple502j"
 	],
@@ -15,10 +15,10 @@
 	"ContentHandlers": {},
 	"ExtensionMessagesFiles": {},
 	"Hooks": {
-		"ParserFirstCallInit": "EmbedScratch::parserEmbedScratch"
+		"ParserFirstCallInit": ["EmbedScratch::parserEmbedScratch"]
 	},
 	"MessagesDirs": {
-		"embedScratch": [
+		"EmbedScratch": [
 			"i18n"
 		]
 	},
