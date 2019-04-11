@@ -33,8 +33,8 @@ class EmbedScratch{
 	
 	function renderEmbedScratch ($input, $argv, $parser) {
 		$project = '';
-		$width = $width_max = 485;
-		$height = $height_max = 402;
+		$width = $width_max = 580;
+		$height = $height_max = 480;
 	
 		
 		if ( !empty( $argv['project'] ) ){
@@ -59,7 +59,7 @@ class EmbedScratch{
 			$height = $argv['height'];
 		}
 		if (!empty($project)) {
-			return "<iframe allowtransparency=\"true\" width=\"{$width}\" height=\"{$height}\" src=\"https://scratch.mit.edu/projects/embed/{$project}/?autostart=false\" frameborder=\"0\" allowfullscreen></iframe>";
+			return "<iframe allowtransparency=\"false\" width=\"{$width}px\" height=\"{$height}px\" src=\"https://scratch.mit.edu/projects/{$project}/embed\" frameborder=\"0\" allowfullscreen=\"\" scrolling=\"no\" bgcolor=\"#000000\" style=\"margin-top: -45px; overflow: hidden;\"></iframe>";
 		} else {
 			return "";
 		}
