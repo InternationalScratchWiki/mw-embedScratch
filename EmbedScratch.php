@@ -60,7 +60,24 @@ class EmbedScratch{
 			$height = $argv['height'];
 		}
 		if (!empty($project)) {
-			return "<iframe allowtransparency=\"false\" width=\"{$width}px\" height=\"{$height}px\" src=\"https://scratch.mit.edu/projects/{$project}/embed/\" frameborder=\"0\" allowfullscreen scrolling=\"no\" bgcolor=\"#000000\" style=\"overflow: hidden;\"></iframe>";
+			return (
+				"<div style=\"max-width:{$width}px\">"
+				. "<div style=\"position:relative;padding-top:"
+				. $height / $width * 100
+				. "px\">"
+				. "<iframe "
+				. "allowtransparency=\"false\" "
+				. "width=\"100%\" height=\"100%\" "
+				. "src=\"https://scratch.mit.edu/projects/{$project}/embed/\" "
+				. "frameborder=\"0\" "
+				. "allowfullscreen "
+				. "scrolling=\"no\" "
+				. "bgcolor=\"#000000\" "
+				. "style=\"overflow:hidden;position:absolute;top:0;left:0;\""
+				. ">"
+				. "</iframe>"
+				. "</div></div>"
+			);
 		} else {
 			return "";
 		}
