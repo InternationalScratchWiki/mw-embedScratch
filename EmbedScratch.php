@@ -64,7 +64,7 @@ class EmbedScratch{
 				"<div style=\"max-width:{$width}px\">"
 				. "<div style=\"position:relative;padding-top:"
 				. $height / $width * 100
-				. "px\">"
+				. "%\">"
 				. "<iframe "
 				. "allowtransparency=\"true\" "
 				. "width=\"100%\" height=\"100%\" "
