@@ -33,8 +33,8 @@ class EmbedScratch{
 	
 	function renderEmbedScratch ($input, $argv, $parser) {
 		$project = '';
-		$width = $width_max = 580;
-		$height = $height_max = 480;
+		$width = $width_max = 485;
+		$height = $height_max = 402;
 	
 		
 		if ( !empty( $argv['project'] ) ){
@@ -66,7 +66,7 @@ class EmbedScratch{
 				. $height / $width * 100
 				. "px\">"
 				. "<iframe "
-				. "allowtransparency=\"false\" "
+				. "allowtransparency=\"true\" "
 				. "width=\"100%\" height=\"100%\" "
 				. "src=\"https://scratch.mit.edu/projects/{$project}/embed/\" "
 				. "frameborder=\"0\" "
