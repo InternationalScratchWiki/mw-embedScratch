@@ -31,7 +31,7 @@ class EmbedScratch{
 	    return true;
 	}
 	
-	static function renderEmbedScratch ($input, $argv, $parser) {
+	public static function renderEmbedScratch ($input, $argv, $parser) {
 		$project = '';
 		$width = $width_max = 485;
 		$height = $height_max = 402;
