@@ -13,73 +13,77 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    
+
     Embedding Scratch in MediaWiki
     <scratch> Tag
-    
+
     Some parts are from ScratchSig
     https://github.com/LLK/mw-ScratchSig2/blob/master/ScratchSig2.php
-    
+
 */
 
+use MediaWiki\Hook\ParserFirstCallInitHook;
+
 if (!defined('MEDIAWIKI')) {
-    die();
+	die();
 }
-class EmbedScratch{
-	public static function parserEmbedScratch (&$parser) {
-	    $parser->setHook('scratch', array(__CLASS__,'renderEmbedScratch'));
-	    return true;
+class EmbedScratch implements ParserFirstCallInitHook {
+	public function onParserFirstCallInit($parser) {
+		$parser->setHook('scratch', array(__CLASS__, 'renderEmbedScratch'));
 	}
-	
-	public static function renderEmbedScratch ($input, $argv, $parser) {
+
+	public static function renderEmbedScratch($input, $argv, $parser) {
 		$project = '';
 		$width = $width_max = 485;
 		$height = $height_max = 402;
-	
-		
-		if ( !empty( $argv['project'] ) ){
-			$project=$argv['project'];
-		} elseif (!empty($input)){
-			$project=$input;
-		}
-		$project = htmlspecialchars($project, ENT_QUOTES);
-		if (
-			!empty( $argv['width'] ) &&
-			settype( $argv['width'], 'integer' ) &&
-			( $width_max >= $argv['width'] )
-		)
-		{
-			$width = $argv['width'];
+
+		if (!empty($argv['project'])) {
+			$project = $argv['project'];
+		} elseif (!empty($input)) {
+			$project = $input;
 		}
 		if (
-			!empty( $argv['height'] ) &&
-			settype( $argv['height'], 'integer' ) &&
-			( $height_max >= $argv['height'] )
-		)
-		{
-			$height = $argv['height'];
+			!empty($argv['width']) &&
+			ctype_digit($argv['width']) &&
+			($width_max >= (int)$argv['width'])
+		) {
+			$width = (int)$argv['width'];
 		}
-		if (!empty($project)) {
-			return (
-				"<div style=\"max-width:{$width}px\">"
-				. "<div style=\"position:relative;padding-top:"
-				. $height / $width * 100
-				. "%\">"
-				. "<iframe "
-				. "allowtransparency=\"true\" "
-				. "width=\"100%\" height=\"100%\" "
-				. "src=\"https://scratch.mit.edu/projects/{$project}/embed/\" "
-				. "frameborder=\"0\" "
-				. "allowfullscreen "
-				. "scrolling=\"no\" "
-				. "bgcolor=\"#000000\" "
-				. "style=\"overflow:hidden;position:absolute;top:0;left:0;\""
-				. ">"
-				. "</iframe>"
-				. "</div></div>"
-			);
-		} else {
-			return "";
+		if (
+			!empty($argv['height']) &&
+			ctype_digit($argv['height']) &&
+			($height_max >= (int)$argv['height'])
+		) {
+			$height = (int)$argv['height'];
 		}
+		if (empty($project)) {
+			return '';
+		}
+
+		$paddingTop = (int)($height / $width * 100);
+		return Html::rawElement(
+			'div',
+			[
+				'style' => "max-width:{$width}px",
+				'class' => 'mw-embed-scratch'
+			],
+			Html::rawElement(
+				'div',
+				['style' => "position:relative;padding-top:{$paddingTop}%"],
+				Html::element(
+					'iframe',
+					[
+						'allowtransparency' => 'true',
+						'width' => '100%',
+						'height' => '100%',
+						'src' => "https://scratch.mit.edu/projects/{$project}/embed/",
+						'framborder' => '0',
+						'allowfullscreen' => '',
+						'scrolling' => 'no',
+						'style' => 'overflow:hidden;position:absolute;top:0;left:0;border:none;'
+					]
+				)
+			)
+		);
 	}
 }
