@@ -1,10 +1,10 @@
 {
 	"name": "EmbedScratch",
-	"version": "3.0.0",
+	"version": "4.0.0",
 	"author": [
 		"Apple502j"
 	],
-	"url": "https://github.com/apple502j/mw-embedScratch",
+	"url": "https://github.com/InternationalScratchWiki/mw-embedScratch",
 	"descriptionmsg": "embedscratch-desc",
 	"license-name": "GPLv3",
 	"type": "parserhook",
@@ -12,15 +12,21 @@
 	"AutoloadClasses": {
 		"EmbedScratch": "EmbedScratch.php"
 	},
-	"ContentHandlers": {},
-	"ExtensionMessagesFiles": {},
 	"Hooks": {
-		"ParserFirstCallInit": ["EmbedScratch::parserEmbedScratch"]
+		"ParserFirstCallInit": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "EmbedScratch"
+		}
 	},
 	"MessagesDirs": {
 		"EmbedScratch": [
 			"i18n"
 		]
 	},
-	"manifest_version": 1
+	"manifest_version": 2,
+	"requires": {
+		"MediaWiki": ">= 1.35.0"
+	}
 }
